@@ -24,9 +24,9 @@ ssh-keygen
 
 ssh-copy-id 127.0.0.1
 
-
-sudo tar -zxvf hadoop-3.1.3.tar.gz
-sudo mv hadoop-3.1.3 /usr/local/hadoop
+https://dlcdn.apache.org/hadoop/common/hadoop-3.4.2/hadoop-3.4.2.tar.gz
+sudo tar -zxvf hadoop-3.4.2.tar.gz
+sudo mv hadoop-3.4.2 /usr/local/hadoop
 sudo chown hadoop:hadoop /usr/local/hadoop -R
 
 sudo nano /etc/profile.d/hadoop.sh 
@@ -39,12 +39,12 @@ export HADOOP_COMMON_HOME=$HADOOP_HOME
 export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
 export YARN_HOME=$HADOOP_HOME
 export PATH="$PATH:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin"
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 
 sudo nano /usr/local/hadoop/etc/hadoop/hadoop-env.sh
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 reboot
 
