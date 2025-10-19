@@ -1,0 +1,160 @@
+Instalación Hadoop Linux
+
+Descargas:
+JDK Linux
+WinRAR Linux
+Hadoop Apache
+
+
+Comandos:
+
+sudo apt-get update
+sudo apt-get install default-jdk
+sudo apt-get install openjdk-8-jdk
+
+sudo update-alternatives --config java
+
+sudo nano /etc/profile.d/java.sh 
+
+#/bin/bash
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+reboot
+
+env | grep JAVA_HOME 
+
+sudo adduser hadoop
+
+su hadoop
+
+ssh-keygen
+
+ssh-copy-id 127.0.0.1
+
+
+sudo tar -zxvf hadoop-3.1.3.tar.gz
+sudo mv hadoop-3.1.3 /usr/local/hadoop
+sudo chown hadoop:hadoop /usr/local/hadoop -R
+
+sudo nano /etc/profile.d/hadoop.sh 
+
+#/bin/bash
+export HADOOP_HOME=/usr/local/hadoop
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export YARN_HOME=$HADOOP_HOME
+export PATH="$PATH:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin"
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+
+
+sudo nano /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+reboot
+
+env | grep -i -E "hadoop|yarn"
+
+hadoop versión
+
+
+sudo nano /usr/local/hadoop/etc/hadoop/core-site.xml
+
+<configuration>
+<property>
+      <name>fs.default.name</name>
+      <value>hdfs://localhost:9000</value>
+      <description>The default file system URI</description>
+</property>
+</configuration>
+
+
+Nueva versión
+<configuration>
+<property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://localhost:9000</value>
+        <description>The default file system URI</description>
+</property>
+</configuration>
+
+sudo nano /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+
+<configuration>
+<property>
+      <name>dfs.replication</name>
+      <value>1</value>
+   </property>
+   <property>
+      <name>dfs.name.dir</name>
+      <value>file:///hadoop/hdfs/namenode</value>
+   </property>
+   <property>
+      <name>dfs.data.dir</name>
+      <value>file:///hadoop/hdfs/datanode</value>
+   </property>
+</configuration>
+
+Nueva Version
+<configuration>
+<property>
+        <name>dfs.replication</name>
+        <value>1</value>
+</property>
+<property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///hadoop/hdfs/namenode</value>
+</property>
+<property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///hadoop/hdfs/datanode</value>
+</property>
+</configuration>
+
+
+<configuration>
+<property>
+  <name>mapreduce.framework.name</name>
+   <value>yarn</value>
+ </property>
+</configuration>
+
+<configuration>
+<property>
+  <name>yarn.nodemanager.aux-services</name>
+  <value>mapreduce_shuffle</value>
+</property>
+</configuration>
+
+sudo mkdir -p /hadoop/hdfs/namenode
+sudo mkdir -p /hadoop/hdfs/datanode
+sudo chown -R hadoop:hadoop /hadoop
+
+
+./hdfs namenode -format
+
+(
+cd ~wget https://downloads.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
+
+sudo mv hadoop-3.3.6.tar.gz /usr/local/
+
+cd /usr/local/
+
+sudo tar -xvzf hadoop-3.3.6.tar.gz
+sudo mv hadoop-3.3.6 hadoop
+
+sudo chown -R hadoop:hadoop /usr/local/hadoop
+
+ls /usr/local/hadoop/share/hadoop/hdfs/
+
+)
+
+/usr/local/hadoop/sbin
+
+./start-all.sh
+
+JPS
+
+http://localhost:8088
+http://localhost:9870
